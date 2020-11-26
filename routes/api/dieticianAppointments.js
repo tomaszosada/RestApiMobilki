@@ -30,4 +30,16 @@ router.put("/confirm/:appointmentId", auth, async (req,res)=> {
         res.status(500).send("Server Error!");
     }
 });
+
+//Delete an appointment
+router.delete("/:appointmentId", auth, async (req,res)=>{
+    try {
+        await Appointment.findByIdAndDelete(req.params.appointmentId);
+        res.json({"msg": "Appointment deleted"});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error!");
+        
+    };
+})
 module.exports = router;
